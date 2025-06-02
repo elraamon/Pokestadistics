@@ -180,7 +180,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Card */
 .card, .login-card {
-  /* Quitar fondo y sombra, solo mantener padding y centrado */
   background: none;
   border-radius: 0;
   box-shadow: none;
@@ -191,6 +190,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
 }
 
 .login-card h2, .login-card h1, .card h2, .card h1 {
@@ -284,30 +284,41 @@ button:focus, input[type="submit"]:focus {
 }
 
 @media (max-width: 600px) {
-  .responsive-table, .responsive-table thead, .responsive-table tbody, .responsive-table th, .responsive-table td, .responsive-table tr {
-    display: block;
+  .responsive-table {
     width: 100%;
+    display: block;
+    overflow-x: auto;
+  }
+  .responsive-table thead,
+  .responsive-table tbody,
+  .responsive-table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .responsive-table th,
+  .responsive-table td {
+    display: table-cell;
+    padding: 0.75rem 0.5rem;
+    text-align: left;
+    white-space: normal;
+    border-bottom: 1px solid var(--surface);
+    vertical-align: middle;
+    word-break: break-word;
   }
   .responsive-table thead {
-    display: none;
+    display: table-header-group;
+    background: var(--surface);
   }
   .responsive-table tr {
-    margin-bottom: 1rem;
     background: var(--surface-light);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    padding: 0.5rem 0;
-  }
-  .responsive-table td {
-    padding: 0.75rem 1rem;
-    text-align: right;
-    position: relative;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 0;
   }
   .responsive-table td::before {
-    content: attr(data-label);
-    float: left;
-    color: var(--primary);
-    font-weight: 600;
+    content: none !important;
   }
 }
 
@@ -382,14 +393,73 @@ button:focus, input[type="submit"]:focus {
 }
 
 @media (max-width: 600px) {
-  .home-title {
-    font-size: 2.1rem;
+  .card, .login-card {
+    padding: 1rem 0.5rem;
+    max-width: 98vw;
+    min-width: 0;
+  }
+  .main-responsive {
+    padding: 0.5rem 0.1rem;
   }
   .features-grid {
-    gap: 1rem;
+    gap: 0.5rem;
   }
   .feature-card {
-    padding: 1.25rem 0.75rem 1rem 0.75rem;
-    min-height: 140px;
+    padding: 1rem 0.5rem 0.75rem 0.5rem;
+    min-height: 120px;
+  }
+  input, select, button {
+    font-size: 1rem !important;
+  }
+}
+
+/* Menú lateral hamburguesa */
+.side-drawer {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 78vw;
+  max-width: 320px;
+  background: var(--surface-light);
+  box-shadow: 2px 0 16px rgba(0,0,0,0.12);
+  z-index: 100;
+  padding: 2rem 1.2rem 1.2rem 1.2rem;
+  gap: 0.5rem;
+  animation: slideInLeft 0.18s;
+}
+
+.side-drawer.open {
+  display: flex;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0.5; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Oculta nav-views horizontal en móvil cuando hay hamburguesa */
+@media (max-width: 800px) {
+  .nav-views:not(.side-drawer) {
+    display: none !important;
+  }
+  .navbar-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .navbar-left {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+  .hamburger {
+    display: flex;
   }
 }

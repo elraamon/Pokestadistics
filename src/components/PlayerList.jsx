@@ -37,10 +37,19 @@ export default function PlayerList() {
   };
 
   return (
-    <div>
-      <h3>Jugadores</h3>
-      <div style={{ overflowX: "auto" }}>
-        <table className="responsive-table">
+    <div style={{ width: "100%", maxWidth: 900, margin: "0 auto" }}>
+      <h3 style={{ textAlign: "center", marginBottom: "1.5rem" }}>Jugadores</h3>
+      <div style={{
+        overflowX: "auto",
+        width: "100%",
+        boxSizing: "border-box"
+      }}>
+        <table className="responsive-table" style={{
+          minWidth: 700,
+          width: "100%",
+          fontSize: "1rem",
+          tableLayout: "auto"
+        }}>
           <thead>
             <tr>
               <th>Nombre</th>

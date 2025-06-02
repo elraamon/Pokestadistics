@@ -112,9 +112,31 @@ export default function AddPlayer() {
     }
   };
 
+  // Detecta si es móvil para ajustar el tamaño de los inputs y el card
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 600);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="card">
-      <h2>{mode ? "Añadir Jugador" : "Editar Jugador"}</h2>
+    <div
+      className="card"
+      style={{
+        maxWidth: isMobile ? "98vw" : 420,
+        margin: isMobile ? "1rem auto" : "2rem auto",
+        width: "100%",
+        padding: isMobile ? "1rem 0.5rem" : "2rem 2.5rem",
+        boxSizing: "border-box"
+      }}
+    >
+      <h2 style={{ fontSize: isMobile ? "1.3rem" : undefined }}>
+        {mode ? "Añadir Jugador" : "Editar Jugador"}
+      </h2>
       <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem", justifyContent: "center" }}>
         <span style={{ fontWeight: 600, color: mode ?  "#888" : "#2563eb" }}>Editar</span>
         <button
@@ -171,44 +193,101 @@ export default function AddPlayer() {
         </select>
       )}
       <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          type="text"
-          placeholder="Nombre"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="roundsWon"
-          type="number"
-          placeholder="Rondas ganadas"
-          value={form.roundsWon}
-          onChange={handleChange}
-        />
-        <input
-          name="roundsLost"
-          type="number"
-          placeholder="Rondas perdidas"
-          value={form.roundsLost}
-          onChange={handleChange}
-        />
-        <input
-          name="gamesWon"
-          type="number"
-          placeholder="Partidas ganadas"
-          value={form.gamesWon}
-          onChange={handleChange}
-        />
-        <input
-          name="gamesLost"
-          type="number"
-          placeholder="Partidas perdidas"
-          value={form.gamesLost}
-          onChange={handleChange}
-        />
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          <label style={{ fontWeight: 600, marginBottom: 2, fontSize: isMobile ? "1rem" : undefined }}>Nombre</label>
+          <input
+            name="name"
+            type="text"
+            value={form.name}
+            onChange={handleChange}
+            required
+            style={{
+              padding: isMobile ? "0.7rem 0.7rem" : "0.85rem 1rem",
+              borderRadius: 8,
+              border: "1px solid #ccc",
+              background: "#fff",
+              color: "#23232b",
+              fontSize: isMobile ? "1rem" : "1rem",
+              marginBottom: 6
+            }}
+          />
+          <label style={{ fontWeight: 600, marginBottom: 2, fontSize: isMobile ? "1rem" : undefined }}>Rondas ganadas</label>
+          <input
+            name="roundsWon"
+            type="number"
+            value={form.roundsWon}
+            onChange={handleChange}
+            style={{
+              padding: isMobile ? "0.7rem 0.7rem" : "0.85rem 1rem",
+              borderRadius: 8,
+              border: "1px solid #ccc",
+              background: "#fff",
+              color: "#23232b",
+              fontSize: isMobile ? "1rem" : "1rem",
+              marginBottom: 6
+            }}
+          />
+          <label style={{ fontWeight: 600, marginBottom: 2, fontSize: isMobile ? "1rem" : undefined }}>Rondas perdidas</label>
+          <input
+            name="roundsLost"
+            type="number"
+            value={form.roundsLost}
+            onChange={handleChange}
+            style={{
+              padding: isMobile ? "0.7rem 0.7rem" : "0.85rem 1rem",
+              borderRadius: 8,
+              border: "1px solid #ccc",
+              background: "#fff",
+              color: "#23232b",
+              fontSize: isMobile ? "1rem" : "1rem",
+              marginBottom: 6
+            }}
+          />
+          <label style={{ fontWeight: 600, marginBottom: 2, fontSize: isMobile ? "1rem" : undefined }}>Partidas ganadas</label>
+          <input
+            name="gamesWon"
+            type="number"
+            value={form.gamesWon}
+            onChange={handleChange}
+            style={{
+              padding: isMobile ? "0.7rem 0.7rem" : "0.85rem 1rem",
+              borderRadius: 8,
+              border: "1px solid #ccc",
+              background: "#fff",
+              color: "#23232b",
+              fontSize: isMobile ? "1rem" : "1rem",
+              marginBottom: 6
+            }}
+          />
+          <label style={{ fontWeight: 600, marginBottom: 2, fontSize: isMobile ? "1rem" : undefined }}>Partidas perdidas</label>
+          <input
+            name="gamesLost"
+            type="number"
+            value={form.gamesLost}
+            onChange={handleChange}
+            style={{
+              padding: isMobile ? "0.7rem 0.7rem" : "0.85rem 1rem",
+              borderRadius: 8,
+              border: "1px solid #ccc",
+              background: "#fff",
+              color: "#23232b",
+              fontSize: isMobile ? "1rem" : "1rem",
+              marginBottom: 12
+            }}
+          />
+        </div>
         {error && <div className="text-muted" style={{ color: "red" }}>{error}</div>}
-        <button type="submit">{mode ? "Añadir" : "Guardar cambios"}</button>
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            minWidth: 0,
+            fontSize: isMobile ? "1rem" : "1rem",
+            padding: isMobile ? "0.8rem" : undefined
+          }}
+        >
+          {mode ? "Añadir" : "Guardar cambios"}
+        </button>
       </form>
     </div>
   );
