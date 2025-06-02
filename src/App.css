@@ -1,0 +1,71 @@
+/* src/App.css */
+
+/* Variables de color */
+:root {
+  --azul-oscuro: #0d47a1;
+  --azul-claro: #42a5f5;
+  --azul-medio: #1976d2;
+  --gris-claro: #f5f7fa;
+  --texto-principal: #333;
+  --fondo: #ffffff;
+  --sombra: rgba(25, 118, 210, 0.2);
+}
+
+/* Reset y base */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--gris-claro);
+  color: var(--texto-principal);
+}
+
+/* Contenedor principal */
+.app-container {
+  max-width: 900px;
+  margin: 40px auto 0;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+}
+
+
+/* Títulos */
+h1 {
+  color: var(--azul-oscuro);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Botones */
+button {
+  background-color: var(--azul-medio);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--azul-claro);
+}
+
+/* Inputs y cajas de texto */
+input, select, textarea {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid var(--azul-medio);
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--azul-oscuro);
+  outline: none;
+}
