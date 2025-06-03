@@ -63,9 +63,9 @@ export default function Navbar({ user, onLogout, children }) {
             }}
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <rect y="3" width="20" height="2.2" rx="1.1" fill="#fff"/>
-              <rect y="8.5" width="20" height="2.2" rx="1.1" fill="#fff"/>
-              <rect y="14" width="20" height="2.2" rx="1.1" fill="#fff"/>
+              <rect y="3" width="20" height="2.2" rx="1.1" fill="#fff" />
+              <rect y="8.5" width="20" height="2.2" rx="1.1" fill="#fff" />
+              <rect y="14" width="20" height="2.2" rx="1.1" fill="#fff" />
             </svg>
           </button>
           {/* Responsive side drawer menu */}
@@ -99,16 +99,25 @@ export default function Navbar({ user, onLogout, children }) {
         </>
       ) : (
         <div className="navbar-right">
-          <Link className="navbar-btn" to="/login">Login</Link>
-          <Link className="navbar-btn" to="/register">Register</Link>
+          <Link className="navbar-btn" to="/login">Iniciar Sesión</Link>
+          <Link className="navbar-btn" to="/register">Registrarse</Link>
         </div>
       )}
       <style>{`
         .navbar {
           display: flex;
-          align-items: center;
           justify-content: space-between;
-          position: relative;
+          align-items: center;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 72px;
+          padding: 0 16px;
+          background-color: white;
+          z-index: 1300;
+          box-shadow: 0 4px 16px rgba(37,99,235,0.06);
+          overflow-x: hidden;
         }
         .navbar-left {
           display: flex;
@@ -118,6 +127,21 @@ export default function Navbar({ user, onLogout, children }) {
           display: flex;
           align-items: center;
           gap: 8px;
+        }
+        .navbar-btn {
+          background: var(--primary, #2563eb);
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          padding: 0.5rem 1.1rem;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.18s, color 0.18s;
+        }
+        .navbar-btn:hover, .navbar-btn:focus {
+          background:rgb(20, 68, 172);
+          color:rgb(255, 255, 255);
         }
         .side-drawer {
           position: fixed;
@@ -153,6 +177,11 @@ export default function Navbar({ user, onLogout, children }) {
           }
           .navbar-right {
             margin-left: auto;
+          }
+          .navbar img {
+            max-width: 100%;
+            height: auto;
+            display: block;
           }
         }
       `}</style>

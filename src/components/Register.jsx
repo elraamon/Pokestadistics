@@ -30,32 +30,37 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={handleRegister}>
-      <h2>Register</h2>
-      <input
-        type="text"
-        placeholder="Nombre de usuario"
-        value={displayName}
-        onChange={(e) => setDisplayName(e.target.value)}
-        required
-      />
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        minLength={6}
-      />
-      <button type="submit">Registrar</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
+    <>
+      <div style={{ height: "48px" }} /> {/* Espacio para separar del navbar */}
+      <h1 style={{ textAlign: "center", marginTop: "2rem", marginBottom: "1.5rem", fontSize: "2.2rem", color: "#2563eb" }}>
+        Regístrate
+      </h1>
+      <form onSubmit={handleRegister}>
+        <input
+          type="text"
+          placeholder="Nombre de usuario"
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={6}
+        />
+        <button type="submit">Registrar</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </form>
+    </>
   );
 }

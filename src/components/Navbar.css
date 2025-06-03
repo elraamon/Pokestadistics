@@ -1,12 +1,17 @@
 .navbar {
   display: flex;
-  justify-content: space-between; /* separación extrema izquierda y derecha */
+  justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  padding: 0 16px; /* ⬅️ reduce el padding lateral */
   background-color: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  z-index: 1300;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.06);
+  overflow-x: hidden; /* 🔒 protege aún más */
 }
 
 .app-name {
@@ -34,7 +39,7 @@
 }
 
 .btn:hover {
-  background-color: #e6f0ff;
+  background-color: #87ace4;
 }
 
 .btn-primary {

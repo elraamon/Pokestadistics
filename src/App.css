@@ -12,11 +12,9 @@
 }
 
 /* Reset y base */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--gris-claro);
-  color: var(--texto-principal);
+body > div {
+  overflow-y: auto;  /* ⬅️ Asegura que el scroll esté en el div raíz */
+  height: 100vh;
 }
 
 /* Contenedor principal */
@@ -68,4 +66,73 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   border-color: var(--azul-oscuro);
   outline: none;
+}
+
+.highlight-section {
+  padding: 3rem 1rem;
+  background: #f5f5f5;
+  margin-top: 2rem;
+}
+
+.highlight-container {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.highlight-title {
+  font-size: 2rem;
+  color: #2A75BB;
+  font-weight: bold;
+}
+
+.highlight-text {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.highlight-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.highlight-card {
+  background: white;
+  border: 2px solid #FFCB05;
+  color: #2A75BB;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  transition: transform 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: scale(1.05);
+  background: #FFCB05;
+  color: black;
+}
+
+.highlight-card {
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 2px 16px 0 rgba(37,99,235,0.08);
+  padding: 2rem 1.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 500;
+  transition: box-shadow 0.2s;
+  margin: 0 auto;
+}
+
+.section-separator {
+  border: none;
+  border-top: 4px solid #2563eb;
+  width: 100%;
+  max-width: 700px;
+  margin: 48px auto 32px auto;
+  border-radius: 2px;
 }
