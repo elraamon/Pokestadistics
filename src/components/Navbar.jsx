@@ -25,6 +25,19 @@ export default function Navbar({ user, onLogout, children }) {
   return (
     <header className="navbar">
       <div className="navbar-left">
+        <Link to="/" onClick={handleNavClick} style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src="/public/logo.png"
+            alt="Logo"
+            style={{
+              height: 64,
+              width: 64,
+              marginRight: 0,
+              objectFit: "contain",
+              verticalAlign: "middle"
+            }}
+          />
+        </Link>
         <Link to="/" className="navbar-brand" onClick={handleNavClick}>Pokestadistics</Link>
       </div>
       {user ? (
