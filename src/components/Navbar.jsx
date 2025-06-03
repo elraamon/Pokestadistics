@@ -27,7 +27,7 @@ export default function Navbar({ user, onLogout, children }) {
       <div className="navbar-left">
         <Link to="/" onClick={handleNavClick} style={{ display: "flex", alignItems: "center" }}>
           <img
-            src="/public/logo.png"
+            src="/public/images/logo.png"
             alt="Logo"
             style={{
               height: 64,
