@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useRef, useEffect } from "react";
 
 export default function Navbar({ user, onLogout, children }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const menuRef = useRef();
+  const navigate = useNavigate();
 
   // Cierra el menú al navegar o al hacer click fuera
   const handleNavClick = () => setMenuOpen(false);
@@ -25,19 +27,6 @@ export default function Navbar({ user, onLogout, children }) {
   return (
     <header className="navbar">
       <div className="navbar-left">
-        <Link to="/" onClick={handleNavClick} style={{ display: "flex", alignItems: "center" }}>
-          <img
-            src="/public/images/logo.png"
-            alt="Logo"
-            style={{
-              height: 64,
-              width: 64,
-              marginRight: 0,
-              objectFit: "contain",
-              verticalAlign: "middle"
-            }}
-          />
-        </Link>
         <Link to="/" className="navbar-brand" onClick={handleNavClick}>Pokestadistics</Link>
       </div>
       {user ? (
@@ -79,9 +68,13 @@ export default function Navbar({ user, onLogout, children }) {
             <Link to="/list" className="side-link" onClick={handleNavClick}>Jugadores</Link>
             <Link to="/add" className="side-link" onClick={handleNavClick}>Añadir/Editar</Link>
             <Link to="/profile" className="navbar-user" style={{ textDecoration: "underline", cursor: "pointer", marginTop: 24 }} onClick={handleNavClick}>
-              {user.displayName || "Usuario"}
+              {user.displayName || "Perfil"}
             </Link>
-            <button className="navbar-btn" style={{ width: "100%", marginTop: 8 }} onClick={() => { onLogout(); setMenuOpen(false); }}>
+            <button
+              className="navbar-btn"
+              style={{ width: "100%", marginTop: 8 }}
+              onClick={() => setShowLogoutModal(true)}
+            >
               Cerrar sesión
             </button>
           </nav>
@@ -90,18 +83,81 @@ export default function Navbar({ user, onLogout, children }) {
             <Link to="/list" className="side-link" onClick={handleNavClick}>Jugadores</Link>
             <Link to="/add" className="side-link" onClick={handleNavClick}>Añadir/Editar</Link>
             <Link to="/profile" className="navbar-user" style={{ textDecoration: "underline", marginLeft: 16 }} onClick={handleNavClick}>
-              {user.displayName || "Usuario"}
+              {user.displayName || "Perfil"}
             </Link>
-            <button className="navbar-btn" style={{ marginLeft: 8 }} onClick={() => { onLogout(); setMenuOpen(false); }}>
+            <button
+              className="navbar-btn"
+              style={{ marginLeft: 8 }}
+              onClick={() => setShowLogoutModal(true)}
+            >
               Cerrar sesión
             </button>
           </nav>
+          {/* Modal de confirmación */}
+          {showLogoutModal && (
+            <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                background: "rgba(0,0,0,0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 2000
+              }}
+            >
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: 12,
+                  padding: "2rem 1.5rem",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
+                  minWidth: 280,
+                  textAlign: "center"
+                }}
+              >
+                <h3 style={{ marginBottom: 16 }}>¿Seguro que quieres cerrar sesión?</h3>
+                <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
+                  <button
+                    className="navbar-btn"
+                    style={{ background: "#e5e7eb", color: "#222", fontWeight: 500 }}
+                    onClick={() => setShowLogoutModal(false)}
+                  >
+                    Cancelar
+                  </button>
+                  <Link
+                    to="/"
+                    className="navbar-btn"
+                    style={{ background: "#2563eb", color: "#fff" }}
+                    onClick={() => {
+                      setShowLogoutModal(false);
+                      setMenuOpen(false);
+                      onLogout();
+                    }}
+                  >
+                    Sí, cerrar sesión
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </>
       ) : (
-        <div className="navbar-right">
-          <Link className="navbar-btn" to="/login">Iniciar Sesión</Link>
-          <Link className="navbar-btn" to="/register">Registrarse</Link>
-        </div>
+        <>
+          <div className="navbar-right desktop-navbar-btns">
+            <Link className="navbar-btn" to="/login">Iniciar Sesión</Link>
+            <Link className="navbar-btn" to="/register">Registrarse</Link>
+          </div>
+          <button
+            className="mobile-accede-btn"
+            onClick={() => navigate("/login")}
+          >
+            Accede
+          </button>
+        </>
       )}
       <style>{`
         .navbar {
@@ -138,6 +194,7 @@ export default function Navbar({ user, onLogout, children }) {
           font-weight: 600;
           cursor: pointer;
           transition: background 0.18s, color 0.18s;
+          margin-bottom: 0;
         }
         .navbar-btn:hover, .navbar-btn:focus {
           background:rgb(20, 68, 172);
@@ -165,23 +222,31 @@ export default function Navbar({ user, onLogout, children }) {
         .hamburger {
           display: block;
         }
-        @media (min-width: 768px) {
-          .side-drawer, .hamburger {
+        .mobile-accede-btn {
+          display: none;
+        }
+        @media (max-width: 767px) {
+          .navbar-right.desktop-navbar-btns {
             display: none !important;
           }
-          .desktop-nav {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            margin-left: auto;
-          }
-          .navbar-right {
-            margin-left: auto;
-          }
-          .navbar img {
-            max-width: 100%;
-            height: auto;
+          .mobile-accede-btn {
             display: block;
+            background: var(--primary, #2563eb);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1.1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: auto;
+            margin-right: 0;
+            margin-top: 8px;
+          }
+        }
+        @media (min-width: 768px) {
+          .mobile-accede-btn {
+            display: none !important;
           }
         }
       `}</style>

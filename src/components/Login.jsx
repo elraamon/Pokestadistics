@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -50,6 +51,15 @@ export default function Login() {
         <button type="submit">Iniciar sesión</button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
+      <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+        <span>¿No tienes cuenta? </span>
+        <Link
+          to="/register"
+          style={{ color: "#2563eb", fontWeight: 600 }}
+        >
+          Regístrate aquí
+        </Link>
+      </div>
     </>
   );
 }
